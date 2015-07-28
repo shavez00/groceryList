@@ -12,7 +12,7 @@
 *  Modified this from the original autoloader to be core.php and exist in the Framework namespace
 */
 
-set_include_path( get_include_path().":"); //Need to set include path to include class directory
+set_include_path( get_include_path().":/sdcard/Download/groceryList/class"); //Need to set include path to include class directory
 
 define ("PATH_SEPERATOR", ":");  //Need to define PATH_SEPERATOR to eliminate notice message about constant not being defined.
 
@@ -23,6 +23,7 @@ function autoload($class)
     $file = strtolower(str_replace("\\", DIRECTORY_SEPARATOR, trim($class, "\\"))).".php";  //need to set name of php file to lowercase because of stringtolower command
     foreach ($paths as $path) {
 		    $combined = $path.DIRECTORY_SEPARATOR.$file;
+		    echo '<br>'.$combined.'<br>'; //Troubleshooting code to echo out the file that's being loaded
 		    if (file_exists($combined)) {
 			      //echo '<br>'.$combined.'<br>'; //Troubleshooting code to echo out the file that's being loaded
 			      include($combined);

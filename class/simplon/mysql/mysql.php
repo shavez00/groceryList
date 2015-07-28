@@ -583,59 +583,6 @@ class Mysql
 
         return false;
     }
-    
-    /**
-     * @param $query
-     * @param array $conds
-     *
-     * @return array|bool
-     */
-    public function fetchRow($query, array $conds = array())
-    {
-        $response = $this->prepareSelect($query, $conds)->fetch($this->getFetchMode());
-
-        if ($response !== false)
-        {
-            return (array)$response;
-        }
-
-        return false;
-    }
-
-
-    /**
-     * @param $query
-     * @param array $conds
-     *
-     * @return array|bool
-     */
-    public function getRow($table, array $fields, array $conds = array())
-    {
-        var_dump($table);  //Troubleshooting code
-        /**
-        $column = array();
-        $value = array();
-        
-        foreach ($fields as $k => $v) {
-            $column = array_push($column, $k);
-            $value = array_push($value, $v);
-        }
-        
-        $query = "SELECT * FROM `" . $table . "` WHERE " . $column[0] . " = '" . $value[0] . "'";
-        if (!empy($column[1])) {
-            for ($i=1; $i<$count; $i++)
-            $query .= " AND " . $column[$i] . " = '" . $value[$i] . "'";
-        }
-        
-        //$response = $this->prepareSelect($query, $conds)->fetch($this->getFetchMode());
-
-        if ($response !== false)
-        {
-            return (array)$response;
-        }
-
-        return false;*/
-    }
 
     /**
      * @param $query
