@@ -23,10 +23,10 @@ function autoload($class)
     $file = strtolower(str_replace("\\", DIRECTORY_SEPARATOR, trim($class, "\\"))).".php";  //need to set name of php file to lowercase because of stringtolower command
     foreach ($paths as $path) {
 		    $combined = $path.DIRECTORY_SEPARATOR.$file;
-		    echo '<br>'.$combined.'<br>'; //Troubleshooting code to echo out the file that's being loaded
+		    //echo '<br>'.$combined.'<br>'; //Troubleshooting code to echo out the file that's being loaded
 		    if (file_exists($combined)) {
-			      //echo '<br>'.$combined.'<br>'; //Troubleshooting code to echo out the file that's being loaded
-			      include($combined);
+			      //echo '<br>'.$combined.'<br>'; //Troubleshooting code to echo out the file that's being loaded 
+			      require($combined);
 			      return;
         }
     }

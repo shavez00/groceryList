@@ -1,5 +1,5 @@
 <?php
-require_once('core.php');
+require('core.php');
 
 $config = array(
     // required credentials
@@ -18,12 +18,13 @@ $config = array(
 );
 
 // standard setup
-$dbConn = new \Simplon\Mysql\Mysql(
-    $config['host'],
-    $config['user'],
-    $config['password'],
-    $config['database']
-);
+/**$dbConn = new \Simplon\Mysql\Mysql(
+$config['host'],
+$config['user'],
+$config['password'],
+$config['database']);*/
+
+$dbConn = new \Simplon\Mysql\glDbMysql();
 
 $data = array(
     'name' => 'Peter',

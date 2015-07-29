@@ -1,13 +1,15 @@
 <?php
 require('core.php');
 
+session_start();
+
 $config = array(
     // required credentials
 
     'host'       => 'localhost',
-    'user'       => 'shavez00',
-    'password'   => 'morgan08',
-    'database'   => 'recipe',
+    'user'       => 'root',
+    'password'   => 'adminadmin',
+    'database'   => 'groceryList',
 
     // optional
 
@@ -17,7 +19,6 @@ $config = array(
     'unixSocket' => null,
 );
 
-//session_start();
 
 $dbConn = new \Simplon\Mysql\Mysql(
     $config['host'],
@@ -26,17 +27,14 @@ $dbConn = new \Simplon\Mysql\Mysql(
     $config['database']
 );
 
-var_dump($dbConn);
+$id = $dbConn->fetchRow("SELECT * FROM users WHERE id = " . $_SESSION["userid"]);
 
-$userid = array("userid" => "26");
+if ($_SESSION['userid'] == $id["id"]) header ("Location: groceryList.php");
 
-$id = $dbConn->getRow('users', $userid);
 
-//if ($_SESSION['userid'] == $dbConn->) header ("Location: groceryList.php");
+session_unset();
 
-//session_unset();
-
-?><!---
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,7 +50,7 @@ $id = $dbConn->getRow('users', $userid);
         <div class="wrapper">
             <div id="main" style="padding:50px 0 0 0;">
 
-                <!-- Form --
+                <!-- Form -->
                 <form id="contact-form" action="groceryList.php" method="get">
                     <h3>Grocery List</h3></br>
                     <h3>MVP</h3>
@@ -73,7 +71,7 @@ $id = $dbConn->getRow('users', $userid);
                         <button type="submit" id="contact-submit" formaction="createUser.php" tabindex="6">Create Account</button>
                     </div>
                 </form>
-                <!-- /Form --
+                <!-- /Form -->
 
             </div>
         </div>
