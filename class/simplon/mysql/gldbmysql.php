@@ -69,4 +69,25 @@ class glDbMysql extends Mysql
             throw new MysqlException($e->getMessage(), $e->getCode());
         }
     }
+
+    public function getColumns($table) {
+	      $dbh = $this->getDbh();
+
+        $response = $dbh->execute("DESCRIBE " . $table);
+
+        if ($response !== false)
+        {
+            $columnNames = $response->fetchAll(PDO::FETCH_COLUMN);
+            return $columnNames;
+        }
+
+        $error = array(
+            'query'     => $query,
+            'errorInfo' => $this->prepareErrorInfo($dbh->errorInfo()),
+        );
+
+        $errorInfo = json_encode($error);
+
+        throw new MysqlException($errorInfo);
+    }
 }

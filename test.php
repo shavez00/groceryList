@@ -31,7 +31,7 @@ $data = array(
     'email'  => "shavez@home.com",
 );
 
-$id = $dbConn->insert("users", $data);
+$id = $dbConn->getColumns("users");
 
 var_dump($id); // 50 || bool
 ?>
