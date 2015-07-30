@@ -73,11 +73,13 @@ class glDbMysql extends Mysql
     public function getColumns($table) {
 	      $dbh = $this->getDbh();
 
-        $response = $dbh->execute("DESCRIBE " . $table);
+        $stmt = $dbh->prepare("DESCRIBE " . $table);
 
-        if ($response !== false)
+       $success = $stmt->execute();
+
+        if ($success !== FALSE)
         {
-            $columnNames = $response->fetchAll(PDO::FETCH_COLUMN);
+            $columnNames = $stmt->fetchAll();
             return $columnNames;
         }
 

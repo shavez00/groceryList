@@ -33,5 +33,7 @@ $data = array(
 
 $id = $dbConn->getColumns("users");
 
-var_dump($id); // 50 || bool
+print "<pre>";
+print_r ($id);
+print "<pre>";
 ?>
