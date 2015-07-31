@@ -77,9 +77,15 @@ class glDbMysql extends Mysql
 
        $success = $stmt->execute();
 
+        $data = new DbRowIterator($stmt); 
+        $lastPeriod = new LastPeriodIterator($data, '2015-04-01 00:00:00'); 
+        foreach ($lastPeriod as $row) { 
+              echo sprintf( '%s (%s)| modified %s', $row->contact_name, $row->contact_email, $row->contact_modified ) . PHP_EOL;
+        }
+
         if ($success !== FALSE)
         {
-            $columnNames = $stmt->fetchAll();
+            $columnNames = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $columnNames;
         }
 
