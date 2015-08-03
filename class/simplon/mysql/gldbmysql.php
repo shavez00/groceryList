@@ -77,20 +77,29 @@ class glDbMysql extends Mysql
 
        $success = $stmt->execute();
 
-        $data = new DbRowIterator($stmt); 
-        $lastPeriod = new LastPeriodIterator($data, '2015-04-01 00:00:00'); 
-        foreach ($lastPeriod as $row) { 
-              echo sprintf( '%s (%s)| modified %s', $row->contact_name, $row->contact_email, $row->contact_modified ) . PHP_EOL;
-        }
+       $columnNames = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+       $iterator = new \RecursiveArrayIterator($columnNames); 
+
+       $fields = array();
 
         if ($success !== FALSE)
         {
-            $columnNames = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            return $columnNames;
+	           while ($iterator->valid()) {
+		             if($iterator->hasChildren()) {
+			                $childIterator = new \RecursiveArrayIterator($iterator->current());
+			                while($childIterator->valid()) {
+				                  if($childIterator->key() == "Field") array_push($fields, $childIterator->current()) ;
+				                  $childIterator->next();
+			                 }
+			            } 
+			            $iterator->next();
+              }
+              return $fields;
         }
 
         $error = array(
-            'query'     => $query,
+            'query'     => "DESCRIBE " . $table,
             'errorInfo' => $this->prepareErrorInfo($dbh->errorInfo()),
         );
 
