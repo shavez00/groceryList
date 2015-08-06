@@ -584,6 +584,30 @@ class Mysql
         return false;
     }
 
+ /**
+     * @param $query
+     * @param array $conds
+     *
+     * @return array|bool
+     */
+    public function fetchRowMany($query, array $conds = array())
+    {
+        $responsesMany = array();
+        $pdoStatment = $this->prepareSelect($query, $conds);
+
+        while ($response = $pdoStatment->fetch($this->getFetchMode()))
+        {
+            $responsesMany[] = $response;
+        }
+
+        if (!empty($responsesMany))
+        {
+            return (array)$responsesMany;
+        }
+
+        return false;
+    }
+
     /**
      * @param $query
      * @param array $conds

@@ -30,9 +30,11 @@ $data = array(
     'name' => 'Peter',
     'email'  => "shavez@home.com",
 );
-
-$id = $dbConn->getColumns("users");
-
+ try {
+$id = $dbConn->getRows("users", array("id" => "shavez00"));
+} catch (Exception $e) {
+	   echo $e->getMessage();
+}
 print "<pre>";
 print_r ($id);
 print "<pre>";

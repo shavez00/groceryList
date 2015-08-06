@@ -70,6 +70,21 @@ class glDbMysql extends Mysql
         }
     }
 
+    protected function getTables() {
+	      $dbh = $this->getDbh();
+	
+	      $tablesObj = $dbh->query("SHOW TABLES");
+	    
+	      if (!empty($tablesObj)) {
+		        $tablesArray = $tablesObj->fetchAll(\PDO::FETCH_COLUMN);
+	
+	          $tablesObj ->closeCursor();
+	
+	           return $tablesArray;
+		    }
+	      throw new \Exception ("No tables found in database " . $this->database . "! - glDbMysql.php - line 85");
+    }
+
     public function getColumns($table) {
 	      $dbh = $this->getDbh();
 
@@ -106,5 +121,19 @@ class glDbMysql extends Mysql
         $errorInfo = json_encode($error);
 
         throw new MysqlException($errorInfo);
+    }
+
+    public function getRows($table, array $query)  {
+	      if (!in_array($table, $this->getTables())) throw new \Exception ("The table you're trying to query does not exist - glDbMysql.php - line 127");
+
+	      $columnNames = $this->getColumns($table);
+	
+	     //var_dump($columnNames);  //troubleshooting code
+	
+	    $diff = array_diff(array_keys($query), $columnNames);
+
+	     if (!empty($diff)) throw new \Exception ("The column you're trying to find do not exist in the database " . $this->database . " - glDbMysql.php - line 133");
+        
+        echo "Success";
     }
 }
