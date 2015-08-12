@@ -207,9 +207,11 @@ class Mysql
      * @return \PDOStatement
      */
     protected function setParams(\PDOStatement $pdoStatement, array $params)
-    {
-        foreach ($params as $key => &$val)
+    {$i = 0;
+var_dump($params);
+        foreach ($params as $key => $val)
         {
+	echo ++$i . "</br>";
             $pdoStatement->bindParam($key, $val, $this->getParamType($val));
         }
 
@@ -254,11 +256,10 @@ class Mysql
 
                 // remove actual param
                 unset($params[$key]);
-            }
+           } 
         }
-
         return true;
-    }
+   }
 
     /**
      * @param $query

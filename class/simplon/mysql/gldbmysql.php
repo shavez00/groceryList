@@ -85,7 +85,11 @@ class glDbMysql extends Mysql
 	      throw new \Exception ("No tables found in database " . $this->database . "! - glDbMysql.php - line 85");
     }
 
-    public function getColumns($table) {
+    public function getColumns($table = NULL) {
+        if ($table === NULL) throw new \Exception ("Please input a table name. - glDbMysql.php - line 89");
+	
+	      if (!in_array($table, $this->getTables())) throw new \Exception ("The table you're trying to query does not exist - glDbMysql.php - line 91");
+
 	      $dbh = $this->getDbh();
 
         $stmt = $dbh->prepare("DESCRIBE " . $table);
@@ -123,17 +127,38 @@ class glDbMysql extends Mysql
         throw new MysqlException($errorInfo);
     }
 
-    public function getRows($table, array $query)  {
-	      if (!in_array($table, $this->getTables())) throw new \Exception ("The table you're trying to query does not exist - glDbMysql.php - line 127");
+    public function getRows($table, array $query = NULL)  {
+	      if ($query === NULL) throw new \Exception ("Please input fields to find. - glDbMysql.php - line 131");
+
+	      if (!in_array($table, $this->getTables())) throw new \Exception ("The table you're trying to query does not exist - glDbMysql.php - line 133");
 
 	      $columnNames = $this->getColumns($table);
-	
+
 	     //var_dump($columnNames);  //troubleshooting code
 	
 	    $diff = array_diff(array_keys($query), $columnNames);
 
 	     if (!empty($diff)) throw new \Exception ("The column you're trying to find do not exist in the database " . $this->database . " - glDbMysql.php - line 133");
         
-        echo "Success";
+        $queryStatement = "Select * FROM `" . $table . "`";
+
+
+       if (is_array($query)) {
+	          $i = 0;
+	          foreach ($query as $k => $v) {
+		            if ($i == 0) {
+		                $queryStatement .= " WHERE " . $k . " = :" . $k;
+		                $i++;
+		            } else {
+			              $queryStatement .= " AND " . $k . " = :" . $k;
+		            }
+	          }
+	     }
+	echo $queryStatement;
+        $stmt = $this->prepareSelect($queryStatement, $query);
+
+        $results = $stmt->fetchAll(\PDO::FETCH_BOTH);
+
+       return $results;
     }
 }
