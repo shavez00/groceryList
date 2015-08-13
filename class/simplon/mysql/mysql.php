@@ -207,14 +207,11 @@ class Mysql
      * @return \PDOStatement
      */
     protected function setParams(\PDOStatement $pdoStatement, array $params)
-    {$i = 0;
-var_dump($params);
-        foreach ($params as $key => $val)
+    {
+        foreach ($params as $key => &$val)
         {
-	echo ++$i . "</br>";
             $pdoStatement->bindParam($key, $val, $this->getParamType($val));
         }
-
         return $pdoStatement;
     }
 

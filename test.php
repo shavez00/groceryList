@@ -33,7 +33,7 @@ $data = array(
 
 
  try {
-$id = $dbConn->getRows("users", array("email" => "shavez@home.com", "name" => "Peter"));
+$id = $dbConn->getRows("users", $data);
 } catch (Exception $e) {
 	   echo $e->getMessage();
 }

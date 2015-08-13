@@ -142,22 +142,20 @@ class glDbMysql extends Mysql
         
         $queryStatement = "Select * FROM `" . $table . "`";
 
-
        if (is_array($query)) {
 	          $i = 0;
 	          foreach ($query as $k => $v) {
 		            if ($i == 0) {
-		                $queryStatement .= " WHERE " . $k . " = :" . $k;
+		                $queryStatement .= " WHERE `" . $k . "` = :" . $k;
 		                $i++;
 		            } else {
-			              $queryStatement .= " AND " . $k . " = :" . $k;
+			              $queryStatement .= " AND `" . $k . "` = :" . $k;
 		            }
 	          }
 	     }
-	echo $queryStatement;
         $stmt = $this->prepareSelect($queryStatement, $query);
 
-        $results = $stmt->fetchAll(\PDO::FETCH_BOTH);
+        $results = $stmt->fetchAll($this->fetchMode);
 
        return $results;
     }
