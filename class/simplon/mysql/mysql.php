@@ -80,7 +80,7 @@ class Mysql
     /**
      * @return \PDO
      */
-    protected function getDbh()
+    public function getDbh()
     {
         return $this->dbh;
     }

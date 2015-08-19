@@ -7,7 +7,7 @@ class glDbMysql extends Mysql
     private $host = "localhost";
     private $user = "root";
     private $password = "adminadmin";
-    private $database = "groceryList";
+    private $database = "oceryList";
     protected $fetchMode = \PDO::FETCH_ASSOC;
     private $charset = "utf8";
     private $port = "3306";
@@ -57,9 +57,11 @@ class glDbMysql extends Mysql
             $dns .= ';charset=' . $charset;
 
             // ------------------------------
-
+$success = "FALSE";
             // create PDO instance
-            $this->setDbh(new \PDO($dns, $user, $password));
+            $success = $this->setDbh(new \PDO($dns, $user, $password));
+var_dump($success);
+            if(!success) throw new MysqlException("Check your Database parameters - gldbmysql.php - line 63");
 
             // set fetchMode
             $this->setFetchMode($fetchMode);
@@ -70,7 +72,7 @@ class glDbMysql extends Mysql
         }
     }
 
-    protected function getTables() {
+    public function getTables() {
 	      $dbh = $this->getDbh();
 	
 	      $tablesObj = $dbh->query("SHOW TABLES");
