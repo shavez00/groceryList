@@ -1,6 +1,17 @@
 <?php
 require('core.php');
 
+$Food = new Food("Grape");
+
+
+$Food->updateProperties(["category"=>"fruit", "UPC"=>"11112"]);
+
+$result = $Food->getFood();
+
+/**$dbh = new \Simplon\Mysql\glDbMysql();
+$result = $dbh->executeSql("UPDATE Food SET UPC = '456'");
+
+/**
 $config = array(
     // required credentials
 
@@ -36,8 +47,8 @@ $data = array(
 $id = $dbConn->getRows("users", $data);
 } catch (Exception $e) {
 	   echo $e->getMessage();
-}
+}*/
 print "<pre>";
-print_r ($id);
+print_r ($result);
 print "<pre>";
 ?>

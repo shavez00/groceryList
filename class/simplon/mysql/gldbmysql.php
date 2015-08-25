@@ -7,7 +7,7 @@ class glDbMysql extends Mysql
     private $host = "localhost";
     private $user = "root";
     private $password = "adminadmin";
-    private $database = "oceryList";
+    private $database = "GroceryList";
     protected $fetchMode = \PDO::FETCH_ASSOC;
     private $charset = "utf8";
     private $port = "3306";
@@ -57,11 +57,9 @@ class glDbMysql extends Mysql
             $dns .= ';charset=' . $charset;
 
             // ------------------------------
-$success = "FALSE";
+
             // create PDO instance
-            $success = $this->setDbh(new \PDO($dns, $user, $password));
-var_dump($success);
-            if(!success) throw new MysqlException("Check your Database parameters - gldbmysql.php - line 63");
+            $this->setDbh(new \PDO($dns, $user, $password));
 
             // set fetchMode
             $this->setFetchMode($fetchMode);
@@ -72,7 +70,7 @@ var_dump($success);
         }
     }
 
-    public function getTables() {
+    protected function getTables() {
 	      $dbh = $this->getDbh();
 	
 	      $tablesObj = $dbh->query("SHOW TABLES");
@@ -140,7 +138,7 @@ var_dump($success);
 	
 	    $diff = array_diff(array_keys($query), $columnNames);
 
-	     if (!empty($diff)) throw new \Exception ("The column you're trying to find do not exist in the database " . $this->database . " - glDbMysql.php - line 133");
+	     if (!empty($diff)) throw new \Exception ("The column you're trying to find does not exist in the database " . $this->database . " - glDbMysql.php - line 141");
         
         $queryStatement = "Select * FROM `" . $table . "`";
 

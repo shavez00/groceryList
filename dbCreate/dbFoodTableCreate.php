@@ -1,5 +1,5 @@
 <?php
-require('core.php');
+require('../core.php');
 
 try {
 $config = array(
@@ -30,7 +30,7 @@ foodId TINYINT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 description VARCHAR(30) NOT NULL, 
 UPC TINYINT(12) NULL, 
 category VARCHAR(255) NOT NULL, 
-nutritionalInfoIId TINYINT(12) NOT NULL
+nutritionalInfoId TINYINT(12) NOT NULL
 )");
 
 if ($success) {

@@ -773,7 +773,7 @@ class Mysql
 
         foreach ($data as $columnName => $value)
         {
-            $placeholder['params'][] = $columnName . ' = :' . $columnName;
+            $placeholder['params'][] = "`" . $columnName . "`" . ' = :' . $columnName;
         }
 
         $query = str_replace(':PARAMS', join(', ', $placeholder['params']), $query);
@@ -788,7 +788,7 @@ class Mysql
 
                 foreach ($conds as $columnName => $value)
                 {
-                    $placeholder[] = $columnName . '= :' . $columnName;
+                    $placeholder[] = "`" . $columnName . "`" . '= :' . $columnName;
                 }
 
                 $query = str_replace(':CONDS', join(' AND ', $placeholder), $query);

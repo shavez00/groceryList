@@ -8,7 +8,7 @@ $config = array(
     'host'       => 'localhost',
     'user'       => 'root',
     'password'   => 'adminadmin',
-    'database'   => 'mysql',
+    'database'   => 'GroceryList',
 
     // optional
 
@@ -25,7 +25,7 @@ $config['user'],
 $config['password'],
 $config['database']);
 
-$success = $dbh->executeSql("CREATE DATABASE GroceryList");
+$success = $dbh->executeSql("ALTER TABLE Food COLUMN NutritionalInfoId TINYINT(12) NULL");
 
 if ($success) {
      echo "Database \"GroceryList\" created </br>Current existing databases</br>";
