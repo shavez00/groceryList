@@ -1,5 +1,5 @@
 <?php
-require('../core.php');
+require('core.php');
 
 try {
 $config = array(
@@ -25,7 +25,7 @@ $config['user'],
 $config['password'],
 $config['database']);
 
-$success = $dbh->executeSql("ALTER TABLE Food COLUMN NutritionalInfoId TINYINT(12) NULL");
+$success = $dbh->executeSql("DROP DATABASE GroceryList");
 
 if ($success) {
      echo "Database \"GroceryList\" created </br>Current existing databases</br>";

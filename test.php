@@ -1,7 +1,38 @@
 <?php
 require('core.php');
 
-$Food = new Food("Grape");
+$gl = new GroceryList();
+
+$food = new Food("", 1);
+$food2 = new Food("", 4);
+
+$foodtmp = $food->getFood();
+$foodtmp2 = $food2->getFood();
+
+$glitem = ["quantity"=>5, $foodtmp["foodId"]=>$food];
+$glitem2 = ["quantity"=>2, $foodtmp2["foodId"]=>$food2];
+
+
+$gl[$foodtmp["description"]] = $glitem;
+$gl[$foodtmp2["description"]] = $glitem2;
+
+//$result = $gl;
+print "<pre>";
+print_r($gl);
+print "</pre>";
+
+/**
+$f = serialize($gl) ;
+file_put_contents('gl', $f);
+
+$result = array();
+
+for ($i = 1; $i < count($gl) + 1; $i++) {
+    array_unshift($result, $gl[$i]);
+}
+
+
+/**$Food = new Food("Grape");
 
 
 $Food->updateProperties(["category"=>"fruit", "UPC"=>"11112"]);

@@ -54,4 +54,14 @@ class Food {
 	          $this->$k = $v;
         }
     }
+
+    public function __sleep() {
+         $this->dbh = NULL;
+	       $vars = array_keys(get_object_vars($this));
+	       return $vars;
+    }
+
+    public function __wakeup() {
+		    $this->dbh = new \Simplon\Mysql\glDbMysql();
+    }
 }

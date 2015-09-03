@@ -25,16 +25,14 @@ $config['user'],
 $config['password'],
 $config['database']);
 
-$success = $dbh->executeSql("CREATE TABLE Food (
-foodId MEDIUMINT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-description VARCHAR(255) NOT NULL, 
-UPC BIGINT(12) NULL, 
-category VARCHAR(255) NOT NULL, 
-nutritionalInfoId MEDIUMINT(12) NOT NULL
+$success = $dbh->executeSql("CREATE TABLE GroceryList (
+groceryListId MEDIUMINT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+userId MEDIUM(8) NOT NULL,
+groceryList VARCHAR(10,000) NOT NULL
 )");
 
 if ($success) {
-     echo "Table \"Food\" created.";
+     echo "Table \"GroceryList\" created.";
 }
 } catch (Exception $e) {
      $message = json_decode($e->getMessage());
