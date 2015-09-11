@@ -1,22 +1,27 @@
 <?php
 require('core.php');
-
-$gl = new GroceryList();
-
-$food = new Food("", 1);
-$food2 = new Food("", 4);
+try {
+    $gl = new GroceryList(NULL, 2);
+/**
+$food = new Food("pasta");
+$food2 = new Food("cookies");
 
 $foodtmp = $food->getFood();
 $foodtmp2 = $food2->getFood();
 
-$glitem = ["quantity"=>5, $foodtmp["foodId"]=>$food];
-$glitem2 = ["quantity"=>2, $foodtmp2["foodId"]=>$food2];
+$glitem = ["quantity"=>4, $foodtmp["foodId"]=>$food];
+$glitem2 = ["quantity"=>5, $foodtmp2["foodId"]=>$food2];
 
 
 $gl[$foodtmp["description"]] = $glitem;
 $gl[$foodtmp2["description"]] = $glitem2;
-
-//$result = $gl;
+*/
+unset($gl["Gr"]);
+$gl->save();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+//*$result = $gl;
 print "<pre>";
 print_r($gl);
 print "</pre>";

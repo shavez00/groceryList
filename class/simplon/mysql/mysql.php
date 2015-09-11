@@ -770,7 +770,7 @@ class Mysql
             'params' => array(),
             'conds'  => array(),
         );
-
+	
         foreach ($data as $columnName => $value)
         {
             $placeholder['params'][] = "`" . $columnName . "`" . ' = :' . $columnName;

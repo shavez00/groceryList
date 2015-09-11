@@ -27,8 +27,8 @@ $config['database']);
 
 $success = $dbh->executeSql("CREATE TABLE GroceryList (
 groceryListId MEDIUMINT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-userId MEDIUM(8) NOT NULL,
-groceryList VARCHAR(10,000) NOT NULL
+userId MEDIUMINT(8) NOT NULL,
+groceryList VARCHAR(10000) NOT NULL
 )");
 
 if ($success) {
